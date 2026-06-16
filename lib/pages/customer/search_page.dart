@@ -77,24 +77,22 @@ class _SearchPageState extends State<SearchPage> {
     final q = keyword.toLowerCase();
     final List<Map<String, dynamic>> hasil = [];
 
-    // Selalu tampilkan kota yang cocok (tidak perlu filter tamu)
     for (final kota in kotaList) {
       if (kota.toLowerCase().contains(q)) {
         hasil.add({"type": "kota", "label": kota});
       }
     }
 
-    // Tampilkan villa yang cocok keyword — filter tamu hanya jika jumlahTamu > 0
     for (final villa in villaList) {
-      final name = villa["name"].toString().toLowerCase();
-      final location = villa["location"].toString().toLowerCase();
-      final city = villa["city"].toString().toLowerCase();
+      // ── Null-safety fix ──
+      final String name = villa["name"]?.toString().toLowerCase() ?? '';
+      final String lokasi = villa["lokasi"]?.toString().toLowerCase() ?? '';
+      final String city = villa["city"]?.toString().toLowerCase() ?? '';
       final int kapasitasVilla = villa["guests"] ?? 0;
 
       bool cocokKeyword =
-          name.contains(q) || location.contains(q) || city.contains(q);
+          name.contains(q) || lokasi.contains(q) || city.contains(q);
 
-      // Kalau jumlahTamu 0 (belum diisi di beranda), skip filter tamu
       bool pasTamu =
           widget.jumlahTamu == 0 || kapasitasVilla == widget.jumlahTamu;
 
@@ -111,15 +109,13 @@ class _SearchPageState extends State<SearchPage> {
   void _onTapResult(Map<String, dynamic> item) {
     final String city = item["type"] == "kota"
         ? item["label"]
-        : item["villa"]["city"].toString();
+        : item["villa"]["city"]?.toString() ?? '';
 
-    // Jika dibuka dari beranda → pop balik dengan nama kota
     if (widget.fromBeranda) {
       Navigator.pop(context, city);
       return;
     }
 
-    // Jika dari tombol Cari Kamar → masuk villa list
     setState(() {
       _selectedCity = city;
       selectedCity = city;
@@ -132,16 +128,18 @@ class _SearchPageState extends State<SearchPage> {
 
     villas = villas.where((v) {
       return (selectedCity ?? _selectedCity).toLowerCase() ==
-          v["city"].toString().toLowerCase();
+          (v["city"]?.toString().toLowerCase() ?? '');
     }).toList();
 
+    // ── Null-safety fix: price ──
     villas = villas.where((v) {
-      final price = int.parse(v["price"]);
+      final price = int.tryParse(v["price"]?.toString() ?? '') ?? 0;
       return price >= minPrice && price <= maxPrice;
     }).toList();
 
+    // ── Null-safety fix: rating ──
     villas = villas.where((v) {
-      final rating = double.parse(v["rating"]);
+      final rating = double.tryParse(v["rating"]?.toString() ?? '') ?? 0.0;
       return rating >= selectedRating;
     }).toList();
 
@@ -167,9 +165,6 @@ class _SearchPageState extends State<SearchPage> {
         : _buildVillaListView();
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // VIEW 1 — Halaman Pencarian
-  // ══════════════════════════════════════════════════════════════
   Widget _buildSearchView() {
     return Scaffold(
       backgroundColor: const Color(0xffF5F6FA),
@@ -224,7 +219,7 @@ class _SearchPageState extends State<SearchPage> {
                     )
                   : ListView.separated(
                       itemCount: filteredResults.length,
-                      separatorBuilder: (_, __) =>
+                      separatorBuilder: (_, _) =>
                           const Divider(height: 1, color: Color(0xFFEEEEEE)),
                       itemBuilder: (context, index) {
                         final item = filteredResults[index];
@@ -246,7 +241,7 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             ),
                             title: Text(
-                              item["label"],
+                              item["label"]?.toString() ?? '',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                               ),
@@ -268,13 +263,13 @@ class _SearchPageState extends State<SearchPage> {
                               vertical: 8,
                             ),
                             title: Text(
-                              villa["name"],
+                              villa["name"]?.toString() ?? '',
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             subtitle: Text(
-                              "Rp ${villa["price"]} / malam · 👥 ${villa["guests"]} Tamu",
+                              "Rp ${villa["price"]?.toString() ?? '0'} / malam · 👥 ${villa["guests"]?.toString() ?? '0'} Tamu",
                             ),
                             onTap: () => _onTapResult(item),
                           );
@@ -288,9 +283,6 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // VIEW 2 — Daftar Villa
-  // ══════════════════════════════════════════════════════════════
   Widget _buildVillaListView() {
     final villas = filteredVillas;
 
@@ -305,7 +297,6 @@ class _SearchPageState extends State<SearchPage> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      // Kalau dibuka dari beranda lewat lokasi, back = keluar halaman
                       if (widget.lokasi != null) {
                         Navigator.pop(context);
                       } else {
@@ -350,9 +341,16 @@ class _SearchPageState extends State<SearchPage> {
                       itemCount: villas.length,
                       itemBuilder: (context, index) {
                         final villa = villas[index];
-                        final bool villaIsAsset = villa["image"]
-                            .toString()
-                            .startsWith("assets/");
+
+                        // ── Null-safety fix ──
+                        final String image = villa["image"]?.toString() ?? '';
+                        final String name =
+                            villa["name"]?.toString() ?? 'Nama tidak tersedia';
+                        final String lokasi = villa["lokasi"]?.toString() ?? '';
+                        final String rating =
+                            villa["rating"]?.toString() ?? '0.0';
+                        final String price = villa["price"]?.toString() ?? '0';
+                        final bool villaIsAsset = image.startsWith("assets/");
 
                         return GestureDetector(
                           onTap: () => Navigator.push(
@@ -377,15 +375,26 @@ class _SearchPageState extends State<SearchPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
-                                  child: villaIsAsset
+                                  child: image.isEmpty
+                                      ? Container(
+                                          height: 220,
+                                          width: double.infinity,
+                                          color: Colors.grey[300],
+                                          child: const Icon(
+                                            Icons.image_not_supported,
+                                            size: 60,
+                                            color: Colors.grey,
+                                          ),
+                                        )
+                                      : villaIsAsset
                                       ? Image.asset(
-                                          villa["image"],
+                                          image,
                                           height: 220,
                                           width: double.infinity,
                                           fit: BoxFit.cover,
                                         )
                                       : Image.network(
-                                          villa["image"],
+                                          image,
                                           height: 220,
                                           width: double.infinity,
                                           fit: BoxFit.cover,
@@ -393,15 +402,15 @@ class _SearchPageState extends State<SearchPage> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  villa["name"],
+                                  name,
                                   style: const TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Text(villa["location"]),
-                                Text("${villa["rating"]} ⭐"),
-                                Text("Rp ${villa["price"]} / malam"),
+                                Text(lokasi),
+                                Text("$rating ⭐"),
+                                Text("Rp $price / malam"),
                               ],
                             ),
                           ),
@@ -415,7 +424,6 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  // ── Bottom sheets ─────────────────────────────────────────────
   void _openFilterSheet() {
     showModalBottomSheet(
       context: context,

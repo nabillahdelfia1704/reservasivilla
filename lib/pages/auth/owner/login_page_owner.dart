@@ -32,10 +32,10 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
           child: Column(
             children: [
               // Logo & Judul
-              const Icon(Icons.shield_moon, size: 60, color: Color(0xff003B73)),
+              Image.asset('assets/img/logo.png', width: 150, height: 150),
               const SizedBox(height: 16),
               const Text(
-                "LuxeStay",
+                "Villaku",
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                     ),
                   ],
@@ -65,13 +65,13 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Owner ID / Email",
+                      "Email",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextField(
                       controller: emailController,
                       decoration: const InputDecoration(
-                        hintText: "Masukan ID atau Email",
+                        hintText: "Masukan Email",
                       ),
                     ),
                     const SizedBox(height: 20),

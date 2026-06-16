@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'riwayat_page.dart';
 import 'sukses_page.dart';
 
 class PembayaranPage extends StatefulWidget {
@@ -19,7 +20,7 @@ class PembayaranPage extends StatefulWidget {
 }
 
 class _PembayaranPageState extends State<PembayaranPage> {
-  String? selectedMetode; // 'transfer' | 'va' | 'ewallet'
+  String? selectedMetode;
   String? selectedBank;
   bool isLoading = false;
 
@@ -76,8 +77,38 @@ class _PembayaranPageState extends State<PembayaranPage> {
       return;
     }
 
+    final parts = widget.tanggal.split(' - ');
+    final startParts = parts[0].split('/');
+    final endParts = parts[1].split('/');
+
+    final start = DateTime(
+      int.parse(startParts[2]),
+      int.parse(startParts[1]),
+      int.parse(startParts[0]),
+    );
+    final end = DateTime(
+      int.parse(endParts[2]),
+      int.parse(endParts[1]),
+      int.parse(endParts[0]),
+    );
+    final malam = end.difference(start).inDays;
+
+    riwayatBooking.add({
+      'bookingId':
+          'VLK${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}',
+      'villa': widget.villa,
+      'jumlahMalam': malam,
+      'hargaPerMalam': malam > 0 ? (widget.total ~/ malam) : 0,
+      'total': widget.total,
+      'checkIn': '${start.day}/${start.month}/${start.year}',
+      'checkOut': '${end.day}/${end.month}/${end.year}',
+      'status': end.isAfter(DateTime.now()) ? 'Aktif' : 'Selesai',
+      'canCancel': true,
+      'metodePembayaran': selectedBank,
+    });
+
     setState(() => isLoading = true);
-    await Future.delayed(const Duration(seconds: 2)); // simulasi proses
+    await Future.delayed(const Duration(seconds: 2));
     if (!mounted) return;
     setState(() => isLoading = false);
 
@@ -91,7 +122,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
           metodeBayar: selectedBank!,
         ),
       ),
-      (route) => route.isFirst, // kembali ke beranda kalau back
+      (route) => route.isFirst,
     );
   }
 
@@ -113,7 +144,6 @@ class _PembayaranPageState extends State<PembayaranPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ── Total tagihan ──
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -152,7 +182,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
             ),
             const SizedBox(height: 16),
 
-            // ── Transfer Bank ──
+            // Transfer Bank
             _MetodeSection(
               title: 'Transfer Bank',
               icon: Icons.account_balance,
@@ -254,7 +284,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
 
             const SizedBox(height: 12),
 
-            // ── Virtual Account ──
+            // Virtual Account
             _MetodeSection(
               title: 'Virtual Account',
               icon: Icons.credit_card,
@@ -348,7 +378,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
 
             const SizedBox(height: 12),
 
-            // ── E-Wallet ──
+            // E-Wallet
             _MetodeSection(
               title: 'E-Wallet / QRIS',
               icon: Icons.qr_code,
@@ -432,7 +462,6 @@ class _PembayaranPageState extends State<PembayaranPage> {
 
             const SizedBox(height: 32),
 
-            // ── Tombol Bayar ──
             SizedBox(
               width: double.infinity,
               height: 56,
@@ -472,7 +501,6 @@ class _PembayaranPageState extends State<PembayaranPage> {
   }
 }
 
-// ── Widget section metode ─────────────────────────────────────
 class _MetodeSection extends StatelessWidget {
   final String title;
   final IconData icon;

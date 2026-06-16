@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../auth/customer/auth_service.dart';
-import 'edit_akun_page.dart'; // tambahkan import halaman edit akun
+import 'edit_akun_page.dart';
+import '../auth/owner/owner_auth.dart';
 
 class ProfilePage extends StatefulWidget {
   final VoidCallback? onLogout;
@@ -15,8 +15,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = AuthService.currentUser;
-    final String nama = user?['nama_lengkap'] ?? 'Pengguna';
+    final user = OwnerAuth.currentOwner;
+    final String nama = user?['nama_lengkap'] ?? 'Pemilik';
     final String email = user?['email'] ?? '-';
 
     return SafeArea(
@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     radius: 48,
                     backgroundColor: Colors.grey.shade200,
                     child: Text(
-                      nama.isNotEmpty ? nama[0].toUpperCase() : 'U',
+                      nama.isNotEmpty ? nama[0].toUpperCase() : 'O',
                       style: const TextStyle(
                         fontSize: 36,
                         fontWeight: FontWeight.bold,
@@ -67,6 +67,25 @@ class _ProfilePageState extends State<ProfilePage> {
                     email,
                     style: const TextStyle(fontSize: 14, color: Colors.black54),
                   ),
+                  const SizedBox(height: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffEAF0FF),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Text(
+                      'Pemilik Villa',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xff003B73),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -76,19 +95,21 @@ class _ProfilePageState extends State<ProfilePage> {
             _sectionLabel('Manajemen Akun'),
             _menuCard([
               _menuItem(
-                icon: Icons.edit_outlined, // ← icon tetap sama (edit)
-                label: 'Edit Akun', // ← label diganti
+                icon: Icons.edit_outlined,
+                label: 'Edit Akun',
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const EditAkunPage()),
-                  ).then((_) => setState(() {}));
+                    MaterialPageRoute(
+                      builder: (_) => const EditAkunOwnerPage(),
+                    ),
+                  ).then((_) => setState(() {})); // ← tambahkan ini
                 },
               ),
               _divider(),
               _menuItem(
-                icon: Icons.local_offer_outlined, // ← icon diganti ke promosi
-                label: 'Promosi', // ← label diganti
+                icon: Icons.local_offer_outlined,
+                label: 'Promosi',
                 onTap: () {},
               ),
             ]),
@@ -171,9 +192,9 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ElevatedButton(
             onPressed: () {
-              AuthService.logout();
+              OwnerAuth.logout();
               Navigator.pop(ctx);
-              widget.onLogout?.call(); // ✅
+              widget.onLogout?.call();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xff003B73),
@@ -254,7 +275,7 @@ class _ProfilePageState extends State<ProfilePage> {
     trailing: Switch(
       value: value,
       onChanged: onChanged,
-      activeThumbColor: const Color(0xff003B73),
+      activeThumbColors: const Color(0xff003B73),
     ),
   );
 

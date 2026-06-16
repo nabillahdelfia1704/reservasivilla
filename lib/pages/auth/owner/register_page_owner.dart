@@ -10,7 +10,6 @@ class RegisterOwnerPage extends StatefulWidget {
 
 class _RegisterOwnerPageState extends State<RegisterOwnerPage> {
   final namaController = TextEditingController();
-  final idKaryawanController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool isChecked = false;
@@ -60,11 +59,7 @@ class _RegisterOwnerPageState extends State<RegisterOwnerPage> {
                       "Masukkan nama lengkap",
                       namaController,
                     ),
-                    _buildField(
-                      "ID Karyawan",
-                      "LS-ADMIN-XXXX",
-                      idKaryawanController,
-                    ),
+
                     _buildField("Email", "admin@luxestay.com", emailController),
 
                     const Text(
@@ -102,7 +97,6 @@ class _RegisterOwnerPageState extends State<RegisterOwnerPage> {
 
                     SubmitRegistrasiOwner(
                       nama: namaController,
-                      id: idKaryawanController,
                       email: emailController,
                       pass: passwordController,
                       isAccepted: isChecked,

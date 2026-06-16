@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../auth/registrasi_page.dart';
+import '../auth/customer/registrasi_page.dart';
 
 class TombolRegistrasi extends StatelessWidget {
   const TombolRegistrasi({super.key});

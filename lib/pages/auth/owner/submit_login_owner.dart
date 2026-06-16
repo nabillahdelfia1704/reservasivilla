@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../auth/owner_auth.dart';
-import '../data/data_user.dart';
-import '../owner/beranda_page.dart';
+import 'owner_auth.dart';
+import '../../data/data_user.dart';
+import '../../owner/beranda_page.dart';
 
 class SubmitLogin extends StatefulWidget {
   final TextEditingController emailController;
@@ -30,40 +30,34 @@ class _SubmitLoginState extends State<SubmitLogin> {
     }
 
     setState(() => isLoading = true);
-    await Future.delayed(const Duration(seconds: 1)); // Simulasi proses loading
+    await Future.delayed(const Duration(seconds: 1));
 
-    // --- LOGIKA MENCARI DATA OWNER ---
     Map<String, String>? ownerSesuai;
-
     for (var owner in daftarOwner) {
       if (owner['email'] == email && owner['password'] == password) {
         ownerSesuai = owner;
-        break; // Berhenti mencari jika sudah ketemu
+        break;
       }
     }
 
     setState(() => isLoading = false);
 
-    // --- PENGECEKAN HASIL ---
     if (ownerSesuai != null) {
-      // 1. TAMBAHKAN BARIS INI: Ini adalah cara "mendaftarkan" user yang login ke sistem
       OwnerAuth.login(ownerSesuai);
-
-      // 2. Tampilkan pesan berhasil
       tampilPesan("Selamat datang, ${ownerSesuai['nama_lengkap']}!");
 
-      // 3. Pindah ke halaman Beranda
+      await Future.delayed(const Duration(milliseconds: 800));
+      if (!mounted) return; // ✅ fix warning
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => BerandaPage()),
       );
     } else {
-      // Login Gagal
       tampilPesan("Email atau Password salah!");
     }
   }
 
-  // Helper untuk menampilkan pesan
   void tampilPesan(String pesan) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -76,7 +70,6 @@ class _SubmitLoginState extends State<SubmitLogin> {
 
   @override
   Widget build(BuildContext context) {
-    // ... (kode build Anda tetap sama)
     return SizedBox(
       width: double.infinity,
       height: 50,

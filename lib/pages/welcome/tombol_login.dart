@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../auth/login_page.dart';
+import '../auth/customer/login_page.dart';
 
 class TombolLogin extends StatelessWidget {
   const TombolLogin({super.key});

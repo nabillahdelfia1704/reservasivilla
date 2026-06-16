@@ -29,9 +29,13 @@ class SuksesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Buat kode booking dummy
     final String kodePesanan =
         'VLK${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+
+    // ── Null-safety fix ──
+    final String name = villa['name']?.toString() ?? 'Nama tidak tersedia';
+    final String location =
+        villa['location']?.toString() ?? 'Lokasi tidak tersedia';
 
     return Scaffold(
       backgroundColor: const Color(0xffF5F6FA),
@@ -93,9 +97,9 @@ class SuksesPage extends StatelessWidget {
                     const SizedBox(height: 16),
                     _row('Kode Pesanan', kodePesanan, bold: true),
                     const Divider(height: 20),
-                    _row('Villa', villa['name']),
+                    _row('Villa', name),
                     const SizedBox(height: 8),
-                    _row('Lokasi', villa['location']),
+                    _row('Lokasi', location),
                     const SizedBox(height: 8),
                     _row('Check-in', tanggal.split(' - ')[0]),
                     const SizedBox(height: 8),
@@ -116,21 +120,6 @@ class SuksesPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color(0xffE8F4FD),
                   borderRadius: BorderRadius.circular(14),
-                ),
-                child: Row(
-                  children: const [
-                    Icon(Icons.info_outline, color: Color(0xff003B73)),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'Detail pesanan dan konfirmasi akan dikirim ke email kamu.',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Color(0xff003B73),
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ),
 

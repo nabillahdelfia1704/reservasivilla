@@ -12,6 +12,22 @@ class _RegisterPageState extends State<RegisterPage> {
   bool isHidden = true;
   bool isHiddenConfirm = true;
 
+  final namaController = TextEditingController();
+  final emailController = TextEditingController();
+  final hpController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    namaController.dispose();
+    emailController.dispose();
+    hpController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,14 +36,11 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-
         leadingWidth: 80,
-
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-
           icon: Icon(Icons.arrow_back, color: Color(0xff003B73), size: 32),
         ),
       ),
@@ -35,14 +48,12 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-
           children: [
             SizedBox(height: 20),
 
             // Title
             Text(
               "Create Account",
-
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
@@ -54,7 +65,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
             Text(
               "Bikin akun dan mulai cari villa impianmu",
-
               style: TextStyle(fontSize: 14, color: Colors.black54),
             ),
 
@@ -63,7 +73,6 @@ class _RegisterPageState extends State<RegisterPage> {
             // Full Name
             Text(
               "Nama Lengkap",
-
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -74,19 +83,16 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: 5),
 
             TextField(
+              controller: namaController,
               decoration: InputDecoration(
                 hintText: "Nama lengkap kamu",
-
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
-
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
@@ -98,7 +104,6 @@ class _RegisterPageState extends State<RegisterPage> {
             // Email
             Text(
               "Email",
-
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -109,19 +114,49 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: 5),
 
             TextField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 hintText: "emailkamu@gmail.com",
-
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
-
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xff003B73), width: 2),
+                ),
+              ),
+            ),
 
+            SizedBox(height: 20),
+
+            // Nomor HP
+            Text(
+              "Nomor HP",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1,
+              ),
+            ),
+
+            SizedBox(height: 5),
+
+            TextField(
+              controller: hpController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                hintText: "08xxxxxxxxxx",
+                hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
@@ -133,7 +168,6 @@ class _RegisterPageState extends State<RegisterPage> {
             // Password
             Text(
               "Password",
-
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -144,38 +178,31 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: 5),
 
             TextField(
+              controller: passwordController,
               obscureText: isHidden,
-
               decoration: InputDecoration(
                 hintText: "••••••••",
-
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
-
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {
                       isHidden = !isHidden;
                     });
                   },
-
                   icon: Icon(
                     isHidden
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
-
                     color: Colors.grey,
                     size: 28,
                   ),
                 ),
-
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
@@ -186,8 +213,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
             // Confirm Password
             Text(
-              "konfirmasiss Password",
-
+              "Konfirmasi Password",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -198,38 +224,31 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: 5),
 
             TextField(
+              controller: confirmPasswordController,
               obscureText: isHiddenConfirm,
-
               decoration: InputDecoration(
                 hintText: "••••••••",
-
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
-
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {
                       isHiddenConfirm = !isHiddenConfirm;
                     });
                   },
-
                   icon: Icon(
                     isHiddenConfirm
                         ? Icons.visibility_outlined
                         : Icons.visibility_off_outlined,
-
                     color: Colors.grey,
                     size: 28,
                   ),
                 ),
-
                 border: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
@@ -239,7 +258,13 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(height: 50),
 
             // Button
-            SubmitRegistrasi(),
+            SubmitRegistrasi(
+              namaController: namaController,
+              emailController: emailController,
+              hpController: hpController,
+              passwordController: passwordController,
+              confirmPasswordController: confirmPasswordController,
+            ),
 
             SizedBox(height: 40),
 
@@ -247,13 +272,10 @@ class _RegisterPageState extends State<RegisterPage> {
             Row(
               children: [
                 Expanded(child: Divider(thickness: 1)),
-
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
-
                   child: Text(
                     "OR SIGN UP WITH",
-
                     style: TextStyle(
                       letterSpacing: 2,
                       fontSize: 14,
@@ -262,7 +284,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-
                 Expanded(child: Divider(thickness: 1)),
               ],
             ),
@@ -276,26 +297,18 @@ class _RegisterPageState extends State<RegisterPage> {
                 Expanded(
                   child: Container(
                     height: 60,
-
                     decoration: BoxDecoration(
                       color: Colors.white,
-
                       borderRadius: BorderRadius.circular(20),
-
                       border: Border.all(color: Colors.grey.shade300),
                     ),
-
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-
                       children: [
-                        Image.asset('assets/img/google.png', width: 30),
-
+                        Image.asset('assets/img/google.jpeg', width: 30),
                         SizedBox(width: 8),
-
                         Text(
                           "Google",
-
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -312,26 +325,18 @@ class _RegisterPageState extends State<RegisterPage> {
                 Expanded(
                   child: Container(
                     height: 60,
-
                     decoration: BoxDecoration(
                       color: Colors.white,
-
                       borderRadius: BorderRadius.circular(20),
-
                       border: Border.all(color: Colors.grey.shade300),
                     ),
-
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-
                       children: [
                         Icon(Icons.facebook, color: Colors.blue, size: 32),
-
                         SizedBox(width: 8),
-
                         Text(
                           "Facebook",
-
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,

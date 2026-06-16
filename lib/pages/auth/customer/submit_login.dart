@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../data/data_user.dart';
-import 'customer_auth.dart';
-import '../customer/beranda_page.dart'; // sesuaikan path import project kamu
+import '../../data/data_user.dart';
+import 'auth_service.dart';
+import '../../customer/beranda_page.dart'; // sesuaikan path import project kamu
 
 class SubmitLogin extends StatefulWidget {
   final TextEditingController emailController;
@@ -9,13 +9,11 @@ class SubmitLogin extends StatefulWidget {
 
   /// true  → login dari WelcomePage, setelah berhasil masuk ke BerandaPage
   /// false → login dari DetailVillaPage, setelah berhasil pop balik
-  final bool fromWelcome;
 
   const SubmitLogin({
     super.key,
     required this.emailController,
     required this.passwordController,
-    this.fromWelcome = false,
   });
 
   @override
@@ -54,26 +52,21 @@ class _SubmitLoginState extends State<SubmitLogin> {
     setState(() => isLoading = false);
 
     if (customerSesuai != null) {
-      AuthService.login({
-        'nama': customerSesuai['nama_lengkap'],
-        'email': customerSesuai['email'],
-      });
+      final userData = Map<String, dynamic>.from(customerSesuai);
+      AuthService.login(userData);
 
-      tampilPesan("Selamat datang, ${customerSesuai['nama_lengkap']}!");
+      // ✅ ambil nama dari userData, bukan customerSesuai langsung
+      final String nama = userData['nama_lengkap'] ?? 'Pengguna';
+      tampilPesan("Selamat datang, $nama!");
+
       await Future.delayed(const Duration(milliseconds: 800));
       if (!mounted) return;
 
-      if (widget.fromWelcome) {
-        // Login dari WelcomePage → arahkan ke BerandaPage, hapus semua route sebelumnya
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => const BerandaPage()),
-          (route) => false,
-        );
-      } else {
-        // Login dari DetailVillaPage → pop balik bawa nilai true
-        Navigator.pop(context, true);
-      }
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const BerandaPage()),
+        (route) => false,
+      );
     } else {
       tampilPesan("Email atau password salah, atau akun Anda tidak dikenali!");
     }

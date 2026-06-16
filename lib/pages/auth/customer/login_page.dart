@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reservasi_villa/pages/auth/registrasi_page.dart';
+import 'package:reservasi_villa/pages/auth/customer/registrasi_page.dart';
 import 'submit_login.dart';
 
 class LoginPage extends StatefulWidget {
@@ -146,10 +146,7 @@ class _LoginPageState extends State<LoginPage> {
             SubmitLogin(
               emailController: emailController,
               passwordController: passwordController,
-              fromWelcome: true,
             ),
-
-            SizedBox(height: 30),
 
             // ===== TEKS "BELUM PUNYA AKUN?" =====
             const SizedBox(height: 20), // Jarak dari tombol login
@@ -160,6 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                   "Belum punya akun? ",
                   style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
+                SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
                     // Navigasi ke halaman registrasi
@@ -216,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/img/google.png', width: 30),
+                        Image.asset('assets/img/google.jpeg', width: 30),
                         SizedBox(width: 8),
                         Text(
                           "Google",
