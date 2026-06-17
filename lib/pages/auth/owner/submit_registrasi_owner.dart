@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reservasi_villa/pages/auth/owner/login_page_owner.dart';
 import 'owner_auth.dart';
-import 'login_page_owner.dart';
 
 class SubmitRegistrasiOwner extends StatelessWidget {
   final TextEditingController namaController;

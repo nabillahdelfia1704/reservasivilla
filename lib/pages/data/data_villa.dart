@@ -1,6 +1,5 @@
 // ============================================================
-// SATU-SATUNYA sumber data untuk seluruh aplikasi villa
-// Semua page cukup import file ini
+// Data villa
 // ============================================================
 
 List<Map<String, dynamic>> promoList = [
@@ -157,16 +156,16 @@ final List<Map<String, dynamic>> villaList = [
 
 List<Map<String, dynamic>> bookingList = [
   {
-    "bookingId": "b1",
+    "bookingId": "VLK464672",
     "villaId": "v1", // Menghubungkan booking ini ke Villa Bogor Uhuy
     "startDate": DateTime(2026, 6, 6),
     "endDate": DateTime(2026, 6, 7),
-    "customerName": "phu",
+    "customerName": "Pond Naravit",
     "email": "phuphu@gmail.com",
     "no_hp": "0875789755",
   },
   {
-    "bookingId": "b2",
+    "bookingId": "VLK464682",
     "villaId": "v2", // Menghubungkan booking ini ke Villa Bogor Uhuy
     "startDate": DateTime(2026, 6, 13),
     "endDate": DateTime(2026, 6, 14),
