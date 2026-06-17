@@ -6,6 +6,7 @@ class SuksesPage extends StatelessWidget {
   final String tanggal;
   final int total;
   final String metodeBayar;
+  final String pajak;
 
   const SuksesPage({
     super.key,
@@ -13,6 +14,7 @@ class SuksesPage extends StatelessWidget {
     required this.tanggal,
     required this.total,
     required this.metodeBayar,
+    required this.pajak,
   });
 
   String _formatRupiah(int amount) {
@@ -35,7 +37,7 @@ class SuksesPage extends StatelessWidget {
     // ── Null-safety fix ──
     final String name = villa['name']?.toString() ?? 'Nama tidak tersedia';
     final String location =
-        villa['location']?.toString() ?? 'Lokasi tidak tersedia';
+        villa['lokasi']?.toString() ?? 'Lokasi tidak tersedia';
 
     return Scaffold(
       backgroundColor: const Color(0xffF5F6FA),
@@ -104,6 +106,8 @@ class SuksesPage extends StatelessWidget {
                     _row('Check-in', tanggal.split(' - ')[0]),
                     const SizedBox(height: 8),
                     _row('Check-out', tanggal.split(' - ')[1]),
+                    const SizedBox(height: 8),
+                    _row('pajak', pajak),
                     const Divider(height: 20),
                     _row('Metode Bayar', metodeBayar),
                     const SizedBox(height: 8),

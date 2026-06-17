@@ -121,6 +121,7 @@ class _KonfirmasiPageState extends State<KonfirmasiPage> {
           total: totalSetelahPromo,
           villa: widget.villa,
           tanggal: widget.tanggal,
+          pajak: 'Rp ${formatRupiah(widget.serviceFee)}',
         ),
       ),
     );

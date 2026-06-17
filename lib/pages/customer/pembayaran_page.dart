@@ -7,12 +7,14 @@ class PembayaranPage extends StatefulWidget {
   final int total;
   final Map villa;
   final String tanggal;
+  final String pajak;
 
   const PembayaranPage({
     super.key,
     required this.total,
     required this.villa,
     required this.tanggal,
+    required this.pajak,
   });
 
   @override
@@ -118,6 +120,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
         builder: (_) => SuksesPage(
           villa: widget.villa,
           tanggal: widget.tanggal,
+          pajak: widget.pajak,
           total: widget.total,
           metodeBayar: selectedBank!,
         ),
