@@ -140,7 +140,7 @@ class _BerandaPageState extends State<BerandaPage> {
           ),
           _buildStatCard(
             "Pendapatan (Bulan Ini)",
-            "IDR 1.2M",
+            "IDR ${OwnerAuth.currentOwner?['pendapatan'] ?? '0'}",
             Icons.account_balance_wallet,
           ),
           const SizedBox(height: 20),

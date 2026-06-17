@@ -64,6 +64,7 @@ class _BerandaPageState extends State<BerandaPage> {
     }
   }
 
+  // prompt login jika belum masuk
   Widget _buildLoginPrompt() {
     return Center(
       child: Padding(
@@ -123,6 +124,7 @@ class _BerandaPageState extends State<BerandaPage> {
     return Scaffold(
       backgroundColor: const Color(0xffF3F5F7),
       body: _buildBody(),
+      // navbar bawah
       bottomNavigationBar: Container(
         margin: const EdgeInsets.fromLTRB(18, 0, 18, 50),
         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -156,6 +158,7 @@ class _BerandaPageState extends State<BerandaPage> {
           Stack(
             clipBehavior: Clip.none,
             children: [
+              // header biru
               Container(
                 height: 430,
                 width: double.infinity,
@@ -190,6 +193,7 @@ class _BerandaPageState extends State<BerandaPage> {
                   ),
                 ),
               ),
+              // box search
               Positioned(
                 left: 20,
                 right: 20,
@@ -209,6 +213,7 @@ class _BerandaPageState extends State<BerandaPage> {
                   ),
                   child: Column(
                     children: [
+                      // input destinasi
                       GestureDetector(
                         onTap: () async {
                           final range =
@@ -272,6 +277,7 @@ class _BerandaPageState extends State<BerandaPage> {
                         ),
                       ),
                       const SizedBox(height: 22),
+                      // input tanggal
                       GestureDetector(
                         onTap: () async {
                           final picked = await showDateRangePicker(
@@ -328,6 +334,7 @@ class _BerandaPageState extends State<BerandaPage> {
                         ),
                       ),
                       const SizedBox(height: 22),
+                      // input jumlah tamu
                       InkWell(
                         onTap: () {
                           showModalBottomSheet(
@@ -433,6 +440,7 @@ class _BerandaPageState extends State<BerandaPage> {
                         ),
                       ),
                       const SizedBox(height: 24),
+                      // tombol cari
                       SizedBox(
                         width: double.infinity,
                         height: 55,
@@ -500,6 +508,7 @@ class _BerandaPageState extends State<BerandaPage> {
                   ),
                 ),
                 const SizedBox(height: 18),
+                // list promo horizontal
                 SizedBox(
                   height: 150,
                   child: ListView.builder(
@@ -519,9 +528,7 @@ class _BerandaPageState extends State<BerandaPage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
                           image: DecorationImage(
-                            image: AssetImage(
-                              promoList[index]['image'],
-                            ), // sekarang Map
+                            image: AssetImage(promoList[index]['image']),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -541,6 +548,7 @@ class _BerandaPageState extends State<BerandaPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                // list villa
                 ListView.builder(
                   itemCount: villaList.length,
                   shrinkWrap: true,
@@ -603,12 +611,12 @@ class _BerandaPageState extends State<BerandaPage> {
                                           fit: BoxFit.cover,
                                         ),
                                 ),
+                                // tombol favorit
                                 Positioned(
                                   top: 15,
                                   right: 15,
                                   child: GestureDetector(
                                     onTap: () {
-                                      // ← jika belum login, arahkan ke tab favorite (login prompt)
                                       if (!AuthService.isLoggedIn) {
                                         setState(() => selectedNav = 2);
                                         return;

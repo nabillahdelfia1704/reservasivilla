@@ -10,10 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // Variabel untuk show/hide password
   bool isHidden = true;
 
-  // Controller untuk ambil teks dari field
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -27,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7F8FC),
+      backgroundColor: const Color(0xffF7F8FC),
 
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -35,18 +33,21 @@ class _LoginPageState extends State<LoginPage> {
         leadingWidth: 80,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back, color: Color(0xff003B73), size: 32),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xff003B73),
+            size: 32,
+          ),
         ),
       ),
 
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // Judul
-            Text(
+            const Text(
               "Welcome Back",
               style: TextStyle(
                 fontSize: 40,
@@ -55,22 +56,21 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            SizedBox(height: 1),
+            const SizedBox(height: 1),
 
-            Text(
+            const Text(
               "Login dulu yuk, agar rencana healing kamu makin mantap!",
               style: TextStyle(fontSize: 14, color: Colors.black54),
             ),
 
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
 
-            // ===== FIELD EMAIL =====
-            Text(
+            const Text(
               "Email",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
 
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
 
             TextField(
               controller: emailController,
@@ -81,23 +81,22 @@ class _LoginPageState extends State<LoginPage> {
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // ===== FIELD PASSWORD =====
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Password",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-                Text(
+                const Text(
                   "Lupa Password?",
                   style: TextStyle(
                     fontSize: 16,
@@ -108,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
 
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
 
             TextField(
               controller: passwordController,
@@ -117,12 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: "••••••••••",
                 hintStyle: TextStyle(color: Colors.grey.shade400),
                 suffixIcon: IconButton(
-                  onPressed: () {
-                    // Tombol show/hide password
-                    setState(() {
-                      isHidden = !isHidden;
-                    });
-                  },
+                  onPressed: () => setState(() => isHidden = !isHidden),
                   icon: Icon(
                     isHidden
                         ? Icons.visibility_outlined
@@ -133,23 +127,21 @@ class _LoginPageState extends State<LoginPage> {
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
               ),
             ),
 
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
 
-            // ===== TOMBOL LOGIN =====
-            // Kirim controller ke SubmitLogin
             SubmitLogin(
               emailController: emailController,
               passwordController: passwordController,
             ),
 
-            // ===== TEKS "BELUM PUNYA AKUN?" =====
-            const SizedBox(height: 20), // Jarak dari tombol login
+            const SizedBox(height: 20),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -157,10 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                   "Belum punya akun? ",
                   style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
-                SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    // Navigasi ke halaman registrasi
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -173,36 +163,33 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Color(
-                        0xff003B73,
-                      ), // Warna biru yang sama dengan tema Anda
+                      color: Color(0xff003B73),
                     ),
                   ),
                 ),
               ],
             ),
 
-            // ===== DIVIDER =====
+            const SizedBox(height: 20),
+
             Row(
               children: [
-                Expanded(child: Divider(thickness: 1)),
-                Padding(
+                const Expanded(child: Divider(thickness: 1)),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     "atau lanjut dengan",
                     style: TextStyle(fontSize: 16, color: Colors.black54),
                   ),
                 ),
-                Expanded(child: Divider(thickness: 1)),
+                const Expanded(child: Divider(thickness: 1)),
               ],
             ),
 
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
 
-            // ===== TOMBOL SOSIAL =====
             Row(
               children: [
-                // Google
                 Expanded(
                   child: Container(
                     height: 60,
@@ -215,8 +202,8 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset('assets/img/google.jpeg', width: 30),
-                        SizedBox(width: 8),
-                        Text(
+                        const SizedBox(width: 8),
+                        const Text(
                           "Google",
                           style: TextStyle(
                             fontSize: 18,
@@ -228,9 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
 
-                // Facebook
                 Expanded(
                   child: Container(
                     height: 60,
@@ -242,9 +228,13 @@ class _LoginPageState extends State<LoginPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.facebook, color: Colors.blue, size: 32),
-                        SizedBox(width: 8),
-                        Text(
+                        const Icon(
+                          Icons.facebook,
+                          color: Colors.blue,
+                          size: 32,
+                        ),
+                        const SizedBox(width: 8),
+                        const Text(
                           "Facebook",
                           style: TextStyle(
                             fontSize: 18,
@@ -258,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
 
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
           ],
         ),
       ),

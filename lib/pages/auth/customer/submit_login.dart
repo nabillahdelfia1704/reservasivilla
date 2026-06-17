@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../data/data_user.dart';
 import 'auth_service.dart';
-import '../../customer/beranda_page.dart'; // sesuaikan path import project kamu
+import '../../customer/beranda_page.dart';
 
 class SubmitLogin extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
-
-  /// true  → login dari WelcomePage, setelah berhasil masuk ke BerandaPage
-  /// false → login dari DetailVillaPage, setelah berhasil pop balik
 
   const SubmitLogin({
     super.key,
@@ -55,7 +52,6 @@ class _SubmitLoginState extends State<SubmitLogin> {
       final userData = Map<String, dynamic>.from(customerSesuai);
       AuthService.login(userData);
 
-      // ✅ ambil nama dari userData, bukan customerSesuai langsung
       final String nama = userData['nama_lengkap'] ?? 'Pengguna';
       tampilPesan("Selamat datang, $nama!");
 
@@ -112,7 +108,7 @@ class _SubmitLoginState extends State<SubmitLogin> {
             : const Text(
                 "Sign In",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),

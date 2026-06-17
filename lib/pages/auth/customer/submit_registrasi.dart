@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:reservasi_villa/pages/auth/customer/login_page.dart';
 import 'auth_service.dart';
-import '../../customer/beranda_page.dart';
 
 class SubmitRegistrasi extends StatelessWidget {
   final TextEditingController namaController;
@@ -39,13 +39,13 @@ class SubmitRegistrasi extends StatelessWidget {
               confirmPassword.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Semua field wajib diisi!"),
+                content: const Text("Semua field wajib diisi!"),
                 backgroundColor: Colors.redAccent,
                 behavior: SnackBarBehavior.floating,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
               ),
             );
             return;
@@ -55,13 +55,13 @@ class SubmitRegistrasi extends StatelessWidget {
           if (!email.contains('@') || !email.contains('.')) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Format email tidak valid!"),
+                content: const Text("Format email tidak valid!"),
                 backgroundColor: Colors.redAccent,
                 behavior: SnackBarBehavior.floating,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
               ),
             );
             return;
@@ -71,13 +71,13 @@ class SubmitRegistrasi extends StatelessWidget {
           if (password.length < 6) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Password minimal 6 karakter!"),
+                content: const Text("Password minimal 6 karakter!"),
                 backgroundColor: Colors.redAccent,
                 behavior: SnackBarBehavior.floating,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
               ),
             );
             return;
@@ -87,13 +87,15 @@ class SubmitRegistrasi extends StatelessWidget {
           if (password != confirmPassword) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Password dan konfirmasi password tidak sama!"),
+                content: const Text(
+                  "Password dan konfirmasi password tidak sama!",
+                ),
                 backgroundColor: Colors.redAccent,
                 behavior: SnackBarBehavior.floating,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
               ),
             );
             return;
@@ -106,16 +108,28 @@ class SubmitRegistrasi extends StatelessWidget {
             'no_hp': hp,
           });
 
-          // Langsung ke BerandaPage
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text("Registrasi berhasil! Silakan login."),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              margin: const EdgeInsets.all(16),
+            ),
+          );
+
+          if (!context.mounted) return;
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (_) => const BerandaPage()),
+            MaterialPageRoute(builder: (_) => const LoginPage()),
             (route) => false,
           );
         },
 
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xff003B73),
+          backgroundColor: const Color(0xff003B73),
           elevation: 10,
           shadowColor: Colors.black26,
           shape: RoundedRectangleBorder(
@@ -123,7 +137,7 @@ class SubmitRegistrasi extends StatelessWidget {
           ),
         ),
 
-        child: Text(
+        child: const Text(
           "Sign Up",
           style: TextStyle(
             fontSize: 24,

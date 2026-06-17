@@ -17,13 +17,12 @@ final List<Map<String, String>> daftarCustomer = [
   },
   {
     'id_user': 'CUST-002',
-    'email': 'budi@gmail.com',
-    'password': 'budi2024',
+    'email': 'userbaru@gmail.com',
+    'password': '654321',
     'role': 'customer',
-    'nama_lengkap': 'Siti Rahmawati',
+    'nama_lengkap': 'phuwing',
     'no_hp': '085711223344',
     'nik': '3275098765430002',
-    'kota_asal': 'Bandung',
     'foto_profil': 'assets/images/profiles/siti.png',
   },
 ];
@@ -40,6 +39,7 @@ final List<Map<String, String>> daftarOwner = [
     'nama_lengkap': 'Hendra Wijaya',
     'no_hp': '089988776655',
     'kota_asal': 'Bogor',
+    'pendapatan': '1.2 M',
     'foto_profil': 'assets/images/profiles/admin_hendra.png',
   },
   {
@@ -50,6 +50,7 @@ final List<Map<String, String>> daftarOwner = [
     'nama_lengkap': 'Hendra Wijaya',
     'no_hp': '089988776655',
     'kota_asal': 'Bogor',
+    'pendapatan': '1.2 M',
     'foto_profil': 'assets/images/profiles/admin_hendra.png',
   },
 ];

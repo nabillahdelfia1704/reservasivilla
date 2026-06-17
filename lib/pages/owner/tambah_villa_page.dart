@@ -95,12 +95,29 @@ class _TambahVillaPageState extends State<TambahVillaPage> {
           const SizedBox(height: 15),
           Row(
             children: [
-              Expanded(child: _buildTextField("Tamu", "10", guestController)),
-              const SizedBox(width: 10),
-              Expanded(child: _buildTextField("Kamar", "5", bedController)),
-              const SizedBox(width: 10),
               Expanded(
-                child: _buildTextField("Kamar Mandi", "3", bathController),
+                child: _buildTextField(
+                  "Tamu",
+                  "10",
+                  guestController,
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              Expanded(
+                child: _buildTextField(
+                  "Kamar",
+                  "5",
+                  bedController,
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              Expanded(
+                child: _buildTextField(
+                  "Kamar Mandi",
+                  "3",
+                  bathController,
+                  keyboardType: TextInputType.number,
+                ),
               ),
             ],
           ),
@@ -139,6 +156,35 @@ class _TambahVillaPageState extends State<TambahVillaPage> {
             ),
             onPressed: isChecked
                 ? () {
+                    if (nameController.text.isEmpty ||
+                        areaController.text.isEmpty ||
+                        addressController.text.isEmpty ||
+                        priceController.text.isEmpty ||
+                        guestController.text.isEmpty ||
+                        bedController.text.isEmpty ||
+                        bathController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Semua field wajib diisi!"),
+                          backgroundColor: Colors.redAccent,
+                        ),
+                      );
+                      return;
+                    }
+
+                    if (int.tryParse(guestController.text) == null ||
+                        int.tryParse(bedController.text) == null ||
+                        int.tryParse(bathController.text) == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            "Tamu, Kamar, dan Kamar Mandi harus angka!",
+                          ),
+                          backgroundColor: Colors.redAccent,
+                        ),
+                      );
+                      return;
+                    }
                     if (!_isFotoUploaded || !_isFileUploaded) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -162,7 +208,6 @@ class _TambahVillaPageState extends State<TambahVillaPage> {
                         "pool": fasilitasTerpilih["Pool"],
                         "parkir": fasilitasTerpilih["Parking"],
                         "dapur": fasilitasTerpilih["Kitchen"],
-                        "image": "assets/img/promo2.jpeg",
                       };
                       Navigator.pop(context, dataBaru);
                     }
@@ -219,8 +264,9 @@ class _TambahVillaPageState extends State<TambahVillaPage> {
   Widget _buildTextField(
     String label,
     String hint,
-    TextEditingController controller,
-  ) => Column(
+    TextEditingController controller, {
+    TextInputType keyboardType = TextInputType.text,
+  }) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Padding(
@@ -229,6 +275,7 @@ class _TambahVillaPageState extends State<TambahVillaPage> {
       ),
       TextField(
         controller: controller,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           hintText: hint,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),

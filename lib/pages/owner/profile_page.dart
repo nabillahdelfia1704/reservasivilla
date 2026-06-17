@@ -275,7 +275,7 @@ class _ProfilePageState extends State<ProfilePage> {
     trailing: Switch(
       value: value,
       onChanged: onChanged,
-      activeThumbColors: const Color(0xff003B73),
+      activeColor: const Color(0xff003B73),
     ),
   );
 

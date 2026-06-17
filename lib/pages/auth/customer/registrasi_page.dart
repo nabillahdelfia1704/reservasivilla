@@ -31,28 +31,29 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7F8FC),
+      backgroundColor: const Color(0xffF7F8FC),
 
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leadingWidth: 80,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back, color: Color(0xff003B73), size: 32),
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xff003B73),
+            size: 32,
+          ),
         ),
       ),
 
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // Title
-            Text(
+            const Text(
               "Create Account",
               style: TextStyle(
                 fontSize: 40,
@@ -61,17 +62,16 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
 
-            SizedBox(height: 1),
+            const SizedBox(height: 1),
 
-            Text(
+            const Text(
               "Bikin akun dan mulai cari villa impianmu",
               style: TextStyle(fontSize: 14, color: Colors.black54),
             ),
 
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
 
-            // Full Name
-            Text(
+            const Text(
               "Nama Lengkap",
               style: TextStyle(
                 fontSize: 16,
@@ -79,30 +79,24 @@ class _RegisterPageState extends State<RegisterPage> {
                 letterSpacing: 1,
               ),
             ),
-
-            SizedBox(height: 5),
-
+            const SizedBox(height: 5),
             TextField(
               controller: namaController,
               decoration: InputDecoration(
                 hintText: "Nama lengkap kamu",
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade300),
-                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // Email
-            Text(
+            const Text(
               "Email",
               style: TextStyle(
                 fontSize: 16,
@@ -110,31 +104,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 letterSpacing: 1,
               ),
             ),
-
-            SizedBox(height: 5),
-
+            const SizedBox(height: 5),
             TextField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 hintText: "emailkamu@gmail.com",
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade300),
-                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // Nomor HP
-            Text(
+            const Text(
               "Nomor HP",
               style: TextStyle(
                 fontSize: 16,
@@ -142,31 +130,25 @@ class _RegisterPageState extends State<RegisterPage> {
                 letterSpacing: 1,
               ),
             ),
-
-            SizedBox(height: 5),
-
+            const SizedBox(height: 5),
             TextField(
               controller: hpController,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                 hintText: "08xxxxxxxxxx",
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade300),
-                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // Password
-            Text(
+            const Text(
               "Password",
               style: TextStyle(
                 fontSize: 16,
@@ -174,9 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 letterSpacing: 1,
               ),
             ),
-
-            SizedBox(height: 5),
-
+            const SizedBox(height: 5),
             TextField(
               controller: passwordController,
               obscureText: isHidden,
@@ -184,11 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: "••••••••",
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
                 suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isHidden = !isHidden;
-                    });
-                  },
+                  onPressed: () => setState(() => isHidden = !isHidden),
                   icon: Icon(
                     isHidden
                         ? Icons.visibility_outlined
@@ -197,22 +173,18 @@ class _RegisterPageState extends State<RegisterPage> {
                     size: 28,
                   ),
                 ),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade300),
-                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            // Confirm Password
-            Text(
+            const Text(
               "Konfirmasi Password",
               style: TextStyle(
                 fontSize: 16,
@@ -220,9 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 letterSpacing: 1,
               ),
             ),
-
-            SizedBox(height: 5),
-
+            const SizedBox(height: 5),
             TextField(
               controller: confirmPasswordController,
               obscureText: isHiddenConfirm,
@@ -230,11 +200,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: "••••••••",
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
                 suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isHiddenConfirm = !isHiddenConfirm;
-                    });
-                  },
+                  onPressed: () =>
+                      setState(() => isHiddenConfirm = !isHiddenConfirm),
                   icon: Icon(
                     isHiddenConfirm
                         ? Icons.visibility_outlined
@@ -243,21 +210,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     size: 28,
                   ),
                 ),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade300),
-                ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff003B73), width: 2),
                 ),
               ),
             ),
 
-            SizedBox(height: 50),
+            const SizedBox(height: 30),
 
-            // Button
             SubmitRegistrasi(
               namaController: namaController,
               emailController: emailController,
@@ -266,13 +229,12 @@ class _RegisterPageState extends State<RegisterPage> {
               confirmPasswordController: confirmPasswordController,
             ),
 
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
 
-            // Divider
             Row(
               children: [
-                Expanded(child: Divider(thickness: 1)),
-                Padding(
+                const Expanded(child: Divider(thickness: 1)),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     "OR SIGN UP WITH",
@@ -284,16 +246,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                Expanded(child: Divider(thickness: 1)),
+                const Expanded(child: Divider(thickness: 1)),
               ],
             ),
 
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
 
-            // Social Button
             Row(
               children: [
-                // Google
                 Expanded(
                   child: Container(
                     height: 60,
@@ -306,8 +266,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset('assets/img/google.jpeg', width: 30),
-                        SizedBox(width: 8),
-                        Text(
+                        const SizedBox(width: 8),
+                        const Text(
                           "Google",
                           style: TextStyle(
                             fontSize: 18,
@@ -319,9 +279,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
 
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
 
-                // Facebook
                 Expanded(
                   child: Container(
                     height: 60,
@@ -333,9 +292,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.facebook, color: Colors.blue, size: 32),
-                        SizedBox(width: 8),
-                        Text(
+                        const Icon(
+                          Icons.facebook,
+                          color: Colors.blue,
+                          size: 32,
+                        ),
+                        const SizedBox(width: 8),
+                        const Text(
                           "Facebook",
                           style: TextStyle(
                             fontSize: 18,
@@ -349,7 +312,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ],
             ),
 
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
           ],
         ),
       ),
